@@ -3,7 +3,9 @@ Shell script implementation of Axis Communications Network Video VAPIX API
 
 ## Contents
 
-[vapixlib.sh](vapixlib.sh)  The source-able shell library. Uses a few `bash`isms. Most callable functions take the server name/IP, the axis user, and the axis password as the first three parameters, then whatever function-unique parameters may be needed. See `axis.sh` for examples.
+[vapixlib.sh](vapixlib.sh)  The source-able shell library. Very minimal implementation so far; mostly just an infrastructure for accessing the API, plus functions for invoking Pan Tilt Zoom, Stream Recording, and Enabling and Disable Guard Tours.
+
+Uses a few `bash`isms. Most callable functions take the server name/IP, the axis user, and the axis password as the first three parameters, then whatever function-unique parameters may be needed. See `axis.sh` for examples.
 
 Unless you've installed PKI certificates into your Axis product that are valid in your environment, you'll want to set the variable `NOVALIDATE` to any non-empty string before sourcing `vapixlib.sh`. This will make `curl` ignore the self-signed certificates that Axis products ship with.
 
