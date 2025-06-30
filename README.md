@@ -19,4 +19,4 @@ AXISPASS=somepasswd
 # References
 [Axis](https://wwwaxis.com/) Communications [VAPIX documentation](https://developer.axis.com/vapix/)
 
-Requires [`curl`](https://curl.se/), and the stream recording functions require [xmlstarlet](https://xmlstar.sourceforge.net/)` (actually they will work without it, but it's difficult to use). So far `[jq](https://jqlang.org/)` is not required because VAPIX doesn't use much JSON (I am disappointed by this fact).
+Requires [`curl`](https://curl.se/), and the stream recording functions require [`xmlstarlet`](https://xmlstar.sourceforge.net/) (actually they will work without it, but it's difficult to use). So far [`jq`](https://jqlang.org/) is not required because VAPIX doesn't use much JSON (I am disappointed by this fact).
