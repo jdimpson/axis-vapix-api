@@ -3,7 +3,7 @@ Shell script implementation of Axis Communications Network Video VAPIX API
 
 ## Contents
 
-[vapixlib.sh](vapixlib.sh)  The source-able shell library. Uses a few `bash`isms.
+[vapixlib.sh](vapixlib.sh)  The source-able shell library. Uses a few `bash`isms. Most callable functions take the server name/IP, the axis user, and the axis password as the first three functions, then whatever function-unique parameters may be needed. See `axis.sh` for examples.
 
 [axis.sh](axis.sh) Example utilizing `vapixlib.sh`. Intended to be symbolically linked to a number of files, e.g. `down.sh`, `up.sh`, `left.sh`, `zoomin.sh`, etc. Whichever one is executed at the command line controls what function of the API is invoked.
 
