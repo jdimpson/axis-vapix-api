@@ -62,7 +62,7 @@ vapix_get() { # server, user:pass, URL-path
 
 vapix_post() { # server, user:pass, URL-path, data
 	# I've not seen VAPIX use this, but just in case
-	vapix_curl GET "$1" "$2" "$3" "$4";
+	vapix_curl POST "$1" "$2" "$3" "$4";
 }
 
 PARAM="/axis-cgi/param.cgi";
