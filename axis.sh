@@ -4,7 +4,7 @@ THISDIR="$(dirname "$(readlink -f "$0")")"
 VAPIXLIB="vapixlib.sh";
 
 NOVALIDATE=true
-VERB=
+VERB=true
 if test -r "$THISDIR/$VAPIXLIB"; then
         . "$THISDIR/$VAPIXLIB";
 else
@@ -123,3 +123,21 @@ if ranas "ptzinfo.sh"; then
 	exit 0;
 fi;
 
+# main
+while test $# -gt 0; do
+	if test "$1" = "install"; then
+		echo "Not implemented yet" >&2;
+		exit 7;
+	else
+		echo "executing $AXIS / $1" >&2;
+		if test "$2" = "-d"; then
+			DATA="$3";
+			vapix_post "$AXIS" "$AXISUSER:$AXISPASS" "$1" "$3";
+			shift; 
+			shift;
+		else
+			vapix_get "$AXIS" "$AXISUSER:$AXISPASS" "$1";
+		fi
+	fi
+	shift;
+done
