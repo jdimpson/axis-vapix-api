@@ -46,7 +46,7 @@ vapix_curl() {
 	local APIPATH="$4";
 	local HTTPDATA="$5"; # optional
 	if ! echo "$APIPATH" | grep -q "^/"; then
-		APIPATH="$APIPATH";
+		APIPATH="/$APIPATH";
 	fi
 	URL="${APIPROTO}://${SERVER}${APIPATH}";
 	if ! test -z "$HTTPDATA"; then
