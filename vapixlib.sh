@@ -63,6 +63,8 @@ vapix_get() { # server, user:pass, URL-path
 vapix_post() { # server, user:pass, URL-path, data
 	# I've not seen VAPIX use this, but just in case
 	vapix_curl POST "$1" "$2" "$3" "$4";
+	# probably will need a way to set a Content-Type: header,
+	# but let's wait until we need a POST before figuring that out.
 }
 
 PARAM="/axis-cgi/param.cgi";
