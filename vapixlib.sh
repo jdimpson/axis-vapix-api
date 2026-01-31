@@ -2,7 +2,7 @@
 
 # intended to be sourced or executed. If sourced, recommend using this 
 # structure in the sourcing script, assuming the script is in the same 
-# directory as the :
+# directory as the lib:
 # THISDIR="$(dirname "$(readlink -f "$0")")"
 # VAPIXLIB="vapixlib.sh";
 # . "$THISDIR/$VAPIXLIB";
@@ -70,6 +70,8 @@ PTZ="/axis-cgi/com/ptz.cgi";
 RECORD="/axis-cgi/record/record.cgi";
 RECSTOP="/axis-cgi/record/stop.cgi";
 RECLIST="/axis-cgi/record/list.cgi";
+VIRTINPUTUP="/axis-cgi/virtualinput/activate.cgi";
+VIRTINPUTDN="/axis-cgi/virtualinput/deactivate.cgi";
 
 listprops() {
 	local AXIS="$1";
@@ -247,6 +249,37 @@ recordingliststreams() {
 	recordinglist "$1" "$2" "$3" | while read s i; do
 		echo "$s rtsp://$2:$3@$1/axis-media/media.amp?recordingid=${i}";
 	done
+}
+
+virtualinput() {
+	local AXIS="$1";
+	local AXISUSER="$2";
+	local AXISPASS="$3";
+	local UPDN="$4";
+	local VPORT="$5";
+	if test -z "$VPORT"; then
+		VPORT=1;
+	fi
+	X=
+	SUCC=
+	if test "$UPDN" = "up" || test "$UPDN" = "activate"; then
+		X=$(vapix_get $AXIS "${AXISUSER}:${AXISPASS}" "${VIRTINPUTUP}?schemaversion=1&port=$VPORT");
+		SUCC="ActivateSuccess"
+	else
+		if test "$UPDN" = "dn" || test "$UPDN" = "down" || test "$UPDN" = "deactivate"; then
+			X=$(vapix_get $AXIS "${AXISUSER}:${AXISPASS}" "${VIRTINPUTDN}?schemaversion=1&port=$VPORT");
+			SUCC="DeactivateSuccess"
+		else
+			echo "Unknown verb $UPDN . Expecting activate or deactivate" >&2;
+		fi
+	fi
+	if test -z "$XMLSTAR"; then
+		echo "$X";
+	else
+		# https://xmlstar.sourceforge.net/doc/UG/ch05.html
+		RES=$(echo "$X" | xmlstarlet sel -t -m '//_:'$SUCC  -v '_:StateChanged' | tr '\n' ' ' | sed -e 's/[[:space:]]//g' );
+		echo "$RES";
+	fi
 }
 
 if test $sourced -eq 0; then

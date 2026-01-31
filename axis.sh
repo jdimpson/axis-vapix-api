@@ -89,6 +89,16 @@ if ranas "recordedstreams.sh"; then
 	exit 0;
 fi
 
+if ranas "virtinput.sh"; then
+	V="$1"
+	if test -z "$V"; then
+		V=1;
+	fi
+	virtualinput $AXIS "$AXISUSER" "$AXISPASS" activate "$V";
+	sleep 5;
+	virtualinput $AXIS "$AXISUSER" "$AXISPASS" deactivate "$V";
+	exit 0;
+fi
 
 if ! hasptz $AXIS "$AXISUSER" "$AXISPASS"; then
 	echo "Warning: $AXIS doesn't support PTX" >&2;
