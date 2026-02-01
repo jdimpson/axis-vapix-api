@@ -259,13 +259,18 @@ virtualinput() {
 	local AXISPASS="$3";
 	local UPDN="$4";
 	local VPORT="$5";
+	local SECS="$6";
 	if test -z "$VPORT"; then
 		VPORT=1;
 	fi
 	X=
 	SUCC=
 	if test "$UPDN" = "up" || test "$UPDN" = "activate"; then
-		X=$(vapix_get $AXIS "${AXISUSER}:${AXISPASS}" "${VIRTINPUTUP}?schemaversion=1&port=$VPORT");
+		if test -z "$SECS"; then
+			X=$(vapix_get $AXIS "${AXISUSER}:${AXISPASS}" "${VIRTINPUTUP}?schemaversion=1&port=$VPORT");
+		else
+			X=$(vapix_get $AXIS "${AXISUSER}:${AXISPASS}" "${VIRTINPUTUP}?schemaversion=1&port=$VPORT&duration=$SECS");
+		fi
 		SUCC="ActivateSuccess"
 	else
 		if test "$UPDN" = "dn" || test "$UPDN" = "down" || test "$UPDN" = "deactivate"; then

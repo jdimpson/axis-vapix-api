@@ -94,9 +94,9 @@ if ranas "virtinput.sh"; then
 	if test -z "$V"; then
 		V=1;
 	fi
-	virtualinput $AXIS "$AXISUSER" "$AXISPASS" activate "$V";
-	sleep 5;
-	virtualinput $AXIS "$AXISUSER" "$AXISPASS" deactivate "$V";
+	virtualinput $AXIS "$AXISUSER" "$AXISPASS" activate "$V" 5;
+	#sleep 5;
+	#virtualinput $AXIS "$AXISUSER" "$AXISPASS" deactivate "$V";
 	exit 0;
 fi
 
