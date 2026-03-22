@@ -254,7 +254,7 @@ recordingliststreams() {
 }
 
 virtualinput() {
-	# https://developer.axis.com/vapix/network-video/input-and-outputs/
+	# https://developer.axis.com/vapix/network-video/input-and-outputs/#virtual-input-api
 	local AXIS="$1";
 	local AXISUSER="$2";
 	local AXISPASS="$3";

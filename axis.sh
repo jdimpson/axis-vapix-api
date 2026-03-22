@@ -4,7 +4,7 @@ THISDIR="$(dirname "$(readlink -f "$0")")"
 VAPIXLIB="vapixlib.sh";
 
 NOVALIDATE=true
-VERB=true
+VERB=
 if test -r "$THISDIR/$VAPIXLIB"; then
         . "$THISDIR/$VAPIXLIB";
 else
@@ -90,13 +90,20 @@ if ranas "recordedstreams.sh"; then
 fi
 
 if ranas "virtinput.sh"; then
-	V="$1"
-	if test -z "$V"; then
-		V=1;
+	V="$1";
+	if test -z "$V"; then V=1; fi
+	S="$2";
+	if test -z "$S"; then S=5; fi
+	if test "$S" = "on"; then
+		virtualinput $AXIS "$AXISUSER" "$AXISPASS" activate "$V"
+	else
+		if test "$S" = "off"; then
+			virtualinput $AXIS "$AXISUSER" "$AXISPASS" deactivate "$V";
+		else
+			virtualinput $AXIS "$AXISUSER" "$AXISPASS" activate "$V" "$S";
+		fi
 	fi
-	virtualinput $AXIS "$AXISUSER" "$AXISPASS" activate "$V" 5;
-	#sleep 5;
-	#virtualinput $AXIS "$AXISUSER" "$AXISPASS" deactivate "$V";
+			
 	exit 0;
 fi
 
